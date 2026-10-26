@@ -1,7 +1,8 @@
 {
   "name": "nagihub-key-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
+  "type": "module",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js"
@@ -11,6 +12,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1"
   }
 }
