@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NagiHub Key Generator</title>
+<style>
+:root{--bg:#070914;--card:#0d1224;--line:#202a48;--text:#f5f7ff;--muted:#8d98b8;--accent:#7c5cff;--accent2:#00e5ff;--danger:#ff5277}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,#17204a 0,#070914 38%),#070914;color:var(--text);font:15px Inter,system-ui,Arial,sans-serif;display:flex;justify-content:center;padding:28px}
+.wrap{width:min(1080px,100%)}.brand{display:flex;align-items:center;gap:12px;margin-bottom:22px}.logo{width:48px;height:48px;border:1px solid #46528a;border-radius:14px;display:grid;place-items:center;background:#111833;box-shadow:0 0 30px #4c39ff33;font-weight:900}.brand h1{font-size:22px;margin:0}.brand p{margin:3px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{background:linear-gradient(180deg,#10162aee,#0b1020ee);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 20px 70px #0006}.card h2{margin:0 0 5px;font-size:18px}.sub{color:var(--muted);margin:0 0 18px}.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.plan{border:1px solid var(--line);background:#0a0f1f;border-radius:14px;padding:15px 10px;color:var(--text);cursor:pointer;text-align:center}.plan:hover,.plan.active{border-color:var(--accent);box-shadow:0 0 22px #7c5cff22;background:#14152d}.plan b{display:block;font-size:15px}.plan span{font-size:11px;color:var(--muted)}label{display:block;color:#aeb7d2;font-size:12px;margin:18px 0 7px}input,select{width:100%;background:#070c19;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:13px;outline:0}input:focus,select:focus{border-color:var(--accent2)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:10px;margin-top:18px}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:800;cursor:pointer}.primary{background:linear-gradient(90deg,var(--accent),#a14cff);color:white;flex:1}.secondary{background:#151c33;color:#dce3ff;border:1px solid var(--line)}.keybox{margin-top:18px;padding:16px;border:1px dashed #3b4a7d;border-radius:14px;background:#070c18}.key{font:700 17px ui-monospace,SFMono-Regular,Consolas,monospace;word-break:break-all;color:#dffcff}.status{display:flex;justify-content:space-between;gap:10px;margin-top:12px;color:var(--muted);font-size:12px}.pill{padding:5px 9px;border-radius:999px;background:#123d2b;color:#6ff0b0}.tablewrap{overflow:auto;margin-top:10px}table{width:100%;border-collapse:collapse;min-width:580px}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid #18213a;font-size:12px}th{color:#8995b8}.empty{text-align:center;color:var(--muted);padding:35px}.danger{color:#ff819a;cursor:pointer}.footer{color:#697494;font-size:11px;text-align:center;margin:18px}.note{font-size:12px;line-height:1.6;color:#9aa6c7;margin-top:15px}.warning{border:1px solid #594b20;background:#211b0b;color:#e9d28a;padding:12px;border-radius:12px;font-size:12px;line-height:1.5;margin-top:14px}
+@media(max-width:780px){.grid{grid-template-columns:1fr}.plans{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr}.actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><div class="logo">N</div><div><h1>NagiHub Key Manager</h1><p>Daily • Monthly • Yearly • Lifetime</p></div></div>
+  <div class="grid">
+    <section class="card">
+      <h2>Generate Access Key</h2><p class="sub">Create a unique key with an expiry period.</p>
+      <div class="plans">
+        <button class="plan active" data-days="1" data-name="Daily"><b>DAILY</b><span>24 hours</span></button>
+        <button class="plan" data-days="30" data-name="Monthly"><b>MONTHLY</b><span>30 days</span></button>
+        <button class="plan" data-days="365" data-name="Yearly"><b>YEARLY</b><span>365 days</span></button>
+        <button class="plan" data-days="0" data-name="Lifetime"><b>LIFETIME</b><span>No expiry</span></button>
+      </div>
+      <label for="prefix">Key prefix</label><input id="prefix" value="NAGI">
+      <div class="row"><div><label for="owner">User / note</label><input id="owner" placeholder="Optional"></div><div><label for="count">Quantity</label><select id="count"><option>1</option><option>5</option><option>10</option><option>25</option></select></div></div>
+      <div class="actions"><button class="btn primary" id="generate">GENERATE KEY</button><button class="btn secondary" id="clear">CLEAR HISTORY</button></div>
+      <div class="keybox"><div id="key" class="key">Press GENERATE KEY</div><div class="status"><span id="type">—</span><span id="expires">—</span></div></div>
+      <div class="warning"><b>Important:</b> This GitHub repository is public. This website is a client-side generator for key management/testing. Do not treat browser storage as secure server-side validation.</div>
+    </section>
+    <section class="card">
+      <h2>Generated Keys</h2><p class="sub">Saved locally in this browser.</p>
+      <div class="tablewrap"><table><thead><tr><th>KEY</th><th>PLAN</th><th>EXPIRES</th><th>OWNER</th><th></th></tr></thead><tbody id="history"></tbody></table></div>
+    </section>
+  </div>
+  <div class="footer">NagiHub • Zyvora • Key Manager</div>
+</div>
+<script>
+const store='nagihub_keys_v1';let plan={days:1,name:'Daily'};
+const $=id=>document.getElementById(id);
+function load(){try{return JSON.parse(localStorage.getItem(store)||'[]')}catch{return[]}}
+function save(x){localStorage.setItem(store,JSON.stringify(x))}
+function makeKey(){const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';const bytes=new Uint8Array(18);crypto.getRandomValues(bytes);for(const b of bytes)s+=chars[b%chars.length];return (($('prefix').value.trim().toUpperCase()||'NAGI')+'-'+s.match(/.{1,6}/g).join('-'))}
+function expiry(days){if(!days)return null;return Date.now()+days*86400000}
+function format(ts){return ts?new Date(ts).toLocaleString():'NEVER'}
+function render(){const rows=load();$('history').innerHTML=rows.length?rows.map((x,i)=>`<tr><td><code>${x.key}</code></td><td>${x.plan}</td><td>${format(x.expires)}</td><td>${escapeHtml(x.owner||'—')}</td><td><span class="danger" onclick="removeKey(${i})">DELETE</span></td></tr>`).join(''):`<tr><td colspan="5" class="empty">No keys generated yet.</td></tr>`}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function removeKey(i){const x=load();x.splice(i,1);save(x);render()}
+window.removeKey=removeKey;
+document.querySelectorAll('.plan').forEach(b=>b.onclick=()=>{document.querySelectorAll('.plan').forEach(x=>x.classList.remove('active'));b.classList.add('active');plan={days:Number(b.dataset.days),name:b.dataset.name}});
+$('generate').onclick=()=>{let rows=load(),last=null;const n=Number($('count').value);for(let i=0;i<n;i++){last={key:makeKey(),plan:plan.name,expires:expiry(plan.days),owner:$('owner').value.trim(),created:Date.now()};rows.unshift(last)}save(rows);if(last){$('key').textContent=last.key;$('type').textContent=last.plan;$('expires').textContent='Expires: '+format(last.expires)}render()};
+$('clear').onclick=()=>{if(confirm('Delete all locally saved keys?')){localStorage.removeItem(store);render();$('key').textContent='Press GENERATE KEY';$('type').textContent='—';$('expires').textContent='—'}};
+render();
+</script>
+</body></html>
