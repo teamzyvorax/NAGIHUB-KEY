@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: nagihub-key-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: CORS_ORIGIN
+        value: '*'
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: nagihub-key-data
+      mountPath: /var/data
+      sizeGB: 1
